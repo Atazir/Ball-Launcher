@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ForceCreation : MonoBehaviour
 {
+    public float thrust = 0;
     private Rigidbody rb;
 
     // Use this for initialization
@@ -20,8 +21,8 @@ public class ForceCreation : MonoBehaviour
             if (rb.useGravity == true)
             {
                 rb.useGravity = false;
-                //rb.velocity = new Vector3(0, 0, 0);
-                print("space detected");
+                rb.velocity = new Vector3(0, 0, 0);
+                rb.angularVelocity = Vector3.zero;
             }
             else
             {
@@ -29,5 +30,18 @@ public class ForceCreation : MonoBehaviour
             }
         }
 
+        if (Input.GetKey(KeyCode.W))
+        {
+            thrust = thrust + 5;
+            if(thrust >= 50)
+            {
+                Debug.Log("Charged");
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            rb.AddForce(transform.forward * thrust);
+        }
     }
 }
