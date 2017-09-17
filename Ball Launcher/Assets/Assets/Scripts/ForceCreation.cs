@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class ForceCreation : MonoBehaviour
 {
+    private Rigidbody rb;
 
-    //public Rigidbody rb;
-
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
-        if (Input.GetKeyDown("space") /*&& this.GetComponent<Rigidbody>().useGravity == true*/)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            this.GetComponent<Rigidbody>().useGravity = false;
-            print("space detected");
+            if (rb.useGravity == true)
+            {
+                rb.useGravity = false;
+                //rb.velocity = new Vector3(0, 0, 0);
+                print("space detected");
+            }
+            else
+            {
+                GetComponent<Rigidbody>().useGravity = true;
+            }
         }
-        else
-        {
-            this.GetComponent<Rigidbody>().useGravity = true;
-        }
+
     }
 }
